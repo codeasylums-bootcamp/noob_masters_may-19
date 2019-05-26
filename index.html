@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="script.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="script.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUew1EVhWN-cOGDKXI02QxsrzRtdhRQY&callback=initMap"
+   async defer></script>
+
+
+<!-- particles.js container --> <div id="particles-js"></div> <!-- stats - count particles --> <div class="count-particles"> <span class="js-count-particles">--</span> particles </div> <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib --> <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+<script> particlesJS("particles-js", {"particles":{"number":{"value":256,"density":{"enable":true,"value_area":1578.3700172831523}},"color":{"value":"#ffffff"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":4,"size_min":0.3,"sync":false}},"line_linked":{"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":1,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":600}}},"interactivity":{"detect_on":"","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"repulse"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":250,"size":0,"duration":2,"opacity":0,"speed":3},"repulse":{"distance":400,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});var count_particles, stats, update; stats = new Stats; stats.setMode(0); stats.domElement.style.position = 'absolute'; stats.domElement.style.left = '0px'; stats.domElement.style.top = '0px'; document.body.appendChild(stats.domElement); count_particles = document.querySelector('.js-count-particles'); update = function() { stats.begin(); stats.end(); if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { count_particles.innerText = window.pJSDom[0].pJS.particles.array.length; } requestAnimationFrame(update); }; requestAnimationFrame(update);; </script>
+
+<link rel="stylesheet" href="style.css">
+<<<<<<< HEAD
+   
+=======
+=======
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="script.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUew1EVhWN-cOGDKXI02QxsrzRtdhRQY&callback=initMap" async defer></script>
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
+    <!-- stats - count particles -->
+    <div class="count-particles"> <span class="js-count-particles">--</span> particles </div>
+    <!-- particles.js lib - https://github.com/VincentGarreau/particles.js -->
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- stats.js lib -->
+    <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 256,
+                    "density": {
+                        "enable": true,
+                        "value_area": 1578.3700172831523
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 1,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 4,
+                        "size_min": 0.3,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 600
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 250,
+                        "size": 0,
+                        "duration": 2,
+                        "opacity": 0,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 400,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        var count_particles, stats, update;
+        stats = new Stats;
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+        document.body.appendChild(stats.domElement);
+        count_particles = document.querySelector('.js-count-particles');
+        update = function() {
+            stats.begin();
+            stats.end();
+            if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+                count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+            }
+            requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);;
+    </script>
+>>>>>>> d83f2cadfadfe35b09ae9ef9889c127d2da6f45e
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+>>>>>>> 691cedf8ba06334b41c5c656b49977362fb00c21
+
+<body>
+
+
+    <div class="container">
+<<<<<<< HEAD
+  <h2 id="text-center">Enter Location and Destination </h2>
+  <form id="location-form">
+    <input type="text" id="location-input" class="form-control form-control-lg" placeholder="Enter Location">
+    <br>
+    <input type="text" id="destination-input" class="form-control form-control-lg" placeholder="Enter Destination">
+    <br>
+    <button id="submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+    <button id="getdirection" class="btn btn-primary btn-block">Get Direction</button>
+  </form>
+
+  <div class="card-block" id="formatted-address"></div>
+  <div class="card-block" id="address-components"></div>
+  <div class="card-block" id="geometry"></div>
+  <ul id="myUL">
+
+  </ul>
+  <div id="map"></div>
+</div>
+
+
+
+  </body>
+</html>
+=======
+        <h2 id="text-center">Enter Location and Destination </h2>
+        <form id="location-form">
+            <input type="text" id="location-input" class="form-control form-control-lg" placeholder="Enter Location">
+            <br>
+            <input type="text" id="destination-input" class="form-control form-control-lg" placeholder="Enter Destination">
+            <br>
+            <button id="submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+            <button id="getdirection" class="btn btn-primary btn-block">Get Direction</button>
+        </form>
+
+        <div class="card-block" id="formatted-address"></div>
+        <div class="card-block" id="address-components"></div>
+        <div class="card-block" id="geometry"></div>
+        <ul id="myUL">
+
+        </ul>
+        <div id="map"></div>
+    </div>
+
+
+
+</body>
+
+</html>
+>>>>>>> d83f2cadfadfe35b09ae9ef9889c127d2da6f45e
