@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+/* ---- reset ---- */ body{ margin:0; font:normal 75% Arial, Helvetica, sans-serif; }  /* ---- particles.js container ---- */ #particles-js{ position:absolute; width: 100%; height: 1670px; background-color: #232741; background-image: url(""); background-repeat: repeat-y; background-size: 80%; background-position: 100% 100%; } /* ---- stats.js ---- */ .count-particles{ background: #000022; position: absolute; top: 48px; left: 0; width: 80px; color: #13E8E9; font-size: .8em; text-align: left; text-indent: 4px; line-height: 14px; padding-bottom: 2px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; } .js-count-particles{ font-size: 1.1em; } #stats, .count-particles{ -webkit-user-select: none; margin-top: 5px; margin-left: 5px; } #stats{ border-radius: 3px 3px 0 0; overflow: hidden; } .count-particles{ border-radius: 0 0 3px 3px; }
+
+
+      #map {
+        height: 700px;
+        width:700px;
+        margin:auto;
+        margin-bottom:200px;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #text-center{
+        color: white;
+        text-align: center;
+        padding-top: 20px;
+      }
+
+      #myUL{
+        color: white;
+        font-size: 25px;
+      }
+
+      #location-input,#destination-input{
+          width: 50%;
+          margin: auto ;
+      }
+
+      #submit, #getdirection{
+        margin-top: 20px;
+        width: 50%;
+        margin: auto;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+<!-- particles.js container --> <div id="particles-js"></div> <!-- stats - count particles --> <div class="count-particles"> <span class="js-count-particles">--</span> particles </div> <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib --> <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+
+    <div class="container">
+  <h2 id="text-center">Enter Location and Destination </h2>
+  <form id="location-form">
+    <input type="text" id="location-input" class="form-control form-control-lg" placeholder="Enter Location">
+    <br>
+    <input type="text" id="destination-input" class="form-control form-control-lg" placeholder="Enter Destination">
+    <br>
+    <button id="submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+    <button id="getdirection" class="btn btn-primary btn-block">Get Direction</button>
+  </form>
+
+  <div class="card-block" id="formatted-address"></div>
+  <div class="card-block" id="address-components"></div>
+  <div class="card-block" id="geometry"></div>
+  <ul id="myUL">
+
+  </ul>
+  <div id="map"></div>
+</div>
+    <script>
+    function initMap(){
+      var options = {
+        zoom:8,
+        center:{lat:12.9716,lng:77.5946}
+      }
+      // New map
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+    var locationForm = document.getElementById('location-form');
+
+  locationForm.addEventListener('submit', geocode);
+
+  function geocode(e){
+    // Prevent actual submit
+    e.preventDefault();
+
+    var location = document.getElementById('location-input').value;
+    var destination = document.getElementById('destination-input').value;
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+      params:{
+        address:{location,destination} ,
+        key:'AIzaSyDUUew1EVhWN-cOGDKXI02QxsrzRtdhRQY'
+      }
+    })
+    .then(function(response){
+      // Log full response
+      console.log(response);
+
+      // Formatted Address
+      var formattedAddress = response.data.results[1].formatted_address;
+      var formattedAddressOutput = `
+        <ul class="list-group">
+          <li class="list-group-item">${formattedAddress}</li>
+        </ul>
+      `;
+      // Address Components
+      var addressComponents = response.data.results[1].address_components;
+      var addressComponentsOutput = '<ul class="list-group">';
+      for(var i = 0;i < addressComponents.length;i++){
+        addressComponentsOutput += `
+          <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+        `;
+      }
+      addressComponentsOutput += '</ul>';
+
+      // Geometry
+      var latl = response.data.results[0].geometry.location.lat;
+      var lngl = response.data.results[0].geometry.location.lng;
+      var latd = response.data.results[1].geometry.location.lat;
+      var lngd = response.data.results[1].geometry.location.lng;
+      //console.log(lngl);
+      var geometryOutput = `
+        <ul class="list-group">
+          <li class="list-group-item"><strong>Latitude</strong>: ${latd}</li>
+          <li class="list-group-item"><strong>Longitude</strong>: ${lngd}</li>
+        </ul>
+      `;
+
+      // Output to app
+      document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+      document.getElementById('address-components').innerHTML = addressComponentsOutput;
+      document.getElementById('geometry').innerHTML = geometryOutput;
+    latl = parseFloat(latl);
+    lngl = parseFloat(lngl);
+    latd = parseFloat(latd);
+    lngd = parseFloat(lngd);
+    loc = new google.maps.LatLng(latl,lngl);
+    //console.log(loc);
+    dest = new google.maps.LatLng(latd,lngd);
+
+    })
+    .catch(function(error){
+      console.log(error);
+    });
+
+    var display = new google.maps.DirectionsRenderer();
+    var services = new google.maps.DirectionsService();
+    display.setMap(map);
+    function calculateroute(loc,dest){
+      var request ={
+        origin : dest,
+        destination:loc,
+        travelMode: 'DRIVING'
+      };
+      services.route(request,function(result,status){
+        //console.log(result,status);
+        if(status =='OK'){
+          display.setDirections(result);
+        }
+      });
+    }
+    document.getElementById('getdirection').onclick= function(){
+      calculateroute(dest,loc);
+            calculateDistance(dest,loc);
+            document.getElementById('destination-input').value='';
+            document.getElementById('destination-input').setAttribute("placeholder","Enter next destination")
+    }
+
+  }}
+
+  function calculateDistance() {
+            var origin = loc
+            var destination = dest
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix({
+    origins: [origin],
+    destinations: [destination],
+    travelMode: 'DRIVING',
+    unitSystem: google.maps.UnitSystem.METRIC,
+    avoidHighways: false,
+    avoidTolls: false
+  }, function(response, status) {
+    console.log(response);
+    if (status !== 'OK') {
+      alert('Error was: ' + status);
+    } else {
+      var originList = response.originAddresses;
+      var destinationList = response.destinationAddresses;
+      var outputDiv = document.getElementById('output');
+      //outputDiv.innerHTML = '';
+      //deleteMarkers(markersArray);
+      var ul = document.getElementById("myUL");
+      var distance = document.getElementById("distance");
+      var time = document.getElementById("time");
+      var dist=[];
+      var time=[];
+      dist.push(response.rows[0].elements[0].distance.text);
+      time.push(response.rows[0].elements[0].duration.text);
+      for(var i=0;i<dist.length;i++){
+        var li = document.createElement("li");
+        li.innerHTML = document.getElementById('formatted-address').innerText + ". Distance is " + dist[i] + " and time is " + time[i];
+        ul.appendChild(li);
+      }
+
+      for (var i = 0; i < originList.length; i++) {
+        var results = response.rows[i].elements;
+        geocoder.geocode({'address': originList[i]},
+            showGeocodedAddressOnMap(false));
+        for (var j = 0; j < results.length; j++) {
+          geocoder.geocode({'address': destinationList[j]},
+              showGeocodedAddressOnMap(true));
+          outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+              ': ' + results[j].distance.text + ' in ' +
+              results[j].duration.text + '<br>';
+        }
+      }
+    }
+  });
+
+        }
+  </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUew1EVhWN-cOGDKXI02QxsrzRtdhRQY&callback=initMap"
+   async defer></script>
+   <script>
+   particlesJS("particles-js", {"particles":{"number":{"value":256,"density":{"enable":true,"value_area":1578.3700172831523}},"color":{"value":"#ffffff"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":4,"size_min":0.3,"sync":false}},"line_linked":{"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":1,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":600}}},"interactivity":{"detect_on":"","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":true,"mode":"repulse"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":250,"size":0,"duration":2,"opacity":0,"speed":3},"repulse":{"distance":400,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});var count_particles, stats, update; stats = new Stats; stats.setMode(0); stats.domElement.style.position = 'absolute'; stats.domElement.style.left = '0px'; stats.domElement.style.top = '0px'; document.body.appendChild(stats.domElement); count_particles = document.querySelector('.js-count-particles'); update = function() { stats.begin(); stats.end(); if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { count_particles.innerText = window.pJSDom[0].pJS.particles.array.length; } requestAnimationFrame(update); }; requestAnimationFrame(update);;
+    </script>
+
+  </body>
+</html>
