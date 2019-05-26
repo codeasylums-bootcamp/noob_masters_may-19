@@ -170,7 +170,6 @@
             document.getElementById('destination-input').setAttribute("placeholder","Enter next destination")
     }
 
-  }}
 
   function calculateDistance() {
             var origin = loc
@@ -206,23 +205,23 @@
         ul.appendChild(li);
       }
 
-      for (var i = 0; i < originList.length; i++) {
-        var results = response.rows[i].elements;
-        geocoder.geocode({'address': originList[i]},
-            showGeocodedAddressOnMap(false));
-        for (var j = 0; j < results.length; j++) {
-          geocoder.geocode({'address': destinationList[j]},
-              showGeocodedAddressOnMap(true));
-          outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-              ': ' + results[j].distance.text + ' in ' +
-              results[j].duration.text + '<br>';
-        }
-      }
+
     }
   });
 
         }
+        function activatePlacesSearch(){
+          var autoLocation = document.getElementById('location-input');
+          var autoDestination = document.getElementById('destination-input');
+          var autoComplete = new google.maps.places.Autocomplete(autoLocation);
+        }
+
+      }//}
+google.maps.event.addDomListener(window, 'load', activatePlacesSearch);
+
   </script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUew1EVhWN-cOGDKXI02QxsrzRtdhRQY&libraries=places&callback=activatePlacesSearch"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUew1EVhWN-cOGDKXI02QxsrzRtdhRQY&callback=initMap"
    async defer></script>
    <script>

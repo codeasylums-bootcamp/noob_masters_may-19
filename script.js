@@ -1,5 +1,5 @@
 
-   
+
 function initMap(){
       var options = {
         zoom:8,
@@ -133,7 +133,7 @@ function initMap(){
         li.innerHTML = document.getElementById('formatted-address').innerText + ". Distance is " + dist[i] + " and time is " + time[i];
         ul.appendChild(li);
       }
-
+  
       for (var i = 0; i < originList.length; i++) {
         var results = response.rows[i].elements;
         geocoder.geocode({'address': originList[i]},
@@ -150,4 +150,3 @@ function initMap(){
   });
 
         }
-
